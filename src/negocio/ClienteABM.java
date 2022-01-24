@@ -59,4 +59,15 @@ public class ClienteABM {
 	{
 		return dao.traer();
 	}
+	
+	public List<Cliente> traer(String apellido)
+	{
+		return dao.traer(apellido);
+	}	
+	
+	public List<Cliente> traer(LocalDate desde, LocalDate hasta)
+	{
+		return dao.traer(desde, hasta);
+	}
+
 }

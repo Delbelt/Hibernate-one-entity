@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -119,8 +120,9 @@ public class ClienteDao {
 		
 		try
 		{
-			iniciaOperacion();			
-			objeto = (Cliente) session.createQuery("from Cliente c where c.dni=" + dni).uniqueResult(); 
+			iniciaOperacion();
+			String hql = "from Cliente c where c.dni=" + dni;
+			objeto = (Cliente) session.createQuery(hql).uniqueResult(); 
 			//createQuery se utiliza para crear un HQL(Hibernate Query Languaje - Lenguaje de consulta)
 			//from Cliente = es la CLASE Cliente y NO la tabla de BD cliente
 			//dni = NOMBRE DEL ATRIBUTO de la CLASE
@@ -144,7 +146,8 @@ public class ClienteDao {
 		try 
 		{		
 			iniciaOperacion();
-			lista = session.createQuery("from Cliente c order by c.apellido asc, c.nombre asc").list();		
+			String hql = "from Cliente c order by c.apellido asc, c.nombre asc";
+			lista = session.createQuery(hql).list();				
 		} 
 		
 		finally 
@@ -153,6 +156,46 @@ public class ClienteDao {
 		}
 		
 		return lista;
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> traer(String apellido) throws HibernateException {
+		
+		List<Cliente> lista = null;
+		
+		try 
+		{		
+			iniciaOperacion();
+			String hql ="from Cliente c where c.apellido ='"+ apellido +"'";
+			lista = session.createQuery(hql).list();			
+		} 
+		
+		finally 
+		{
+			session.close();
+		}
+		
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Cliente> traer(LocalDate desde, LocalDate hasta) throws HibernateException {
+		
+		List<Cliente> lista = null;
+		
+		try 
+		{		
+			iniciaOperacion();	
+			String hql = "from Cliente c where c.fechaDeNacimiento between '" + desde + "' and '" + hasta + "'";
+			lista = session.createQuery(hql).list();			
+		} 
+		
+		finally 
+		{
+			session.close();
+		}
+		
+		return lista;
+	}
 	
 }

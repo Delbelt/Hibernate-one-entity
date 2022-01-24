@@ -6,8 +6,9 @@
 
 <hibernate-configuration>
 
-	<session-factory>	
-	
+ 	
+
+	<session-factory>			
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/bd-hibernate-una-entidad</property>
 		<property name="connection.username">root</property>
@@ -15,10 +16,13 @@
 		<property name="connection.pool_size">1</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="show_sql">true</property>
+		<property name="format_sql">false</property>		
+	
 		
 		<!--Mapeo de Entidades -->	
 		<mapping resource="mapeos/Cliente.hbm.xml"/>
 			
-	</session-factory>	
+	</session-factory>
+
 	
 </hibernate-configuration>
